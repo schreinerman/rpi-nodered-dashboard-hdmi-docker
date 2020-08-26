@@ -7,7 +7,7 @@ ARG VCS_REF
 
 #metadata labels
 LABEL org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.vcs-url="https://github.com/schreinerman/armv6-nodered-dashboard-hdmi" \
+      org.label-schema.vcs-url="https://github.com/schreinerman/rpi-nodered-dashboard-hdmi" \
       org.label-schema.vcs-ref=$VCS_REF
 
 #version
