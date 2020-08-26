@@ -58,13 +58,7 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 #install userland raspberry pi tools (needed vor VNC)
-RUN apt-get update && apt install -y \
-    git \
- && git clone --depth 1 https://github.com/raspberrypi/firmware /tmp/firmware \
- && mv /tmp/firmware/hardfp/opt/vc /opt \
- && echo "/opt/vc/lib" >/etc/ld.so.conf.d/00-vmcs.conf \
- && /sbin/ldconfig \
- && rm -rf /opt/vc/src \
+RUN apt-get update && apt install -y 
  && echo "deb http://archive.raspberrypi.org/debian/ buster main" | tee -a /etc/apt/sources.list \
  && gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-key 82B129927FA3303E \
  && gpg -a --export 82B129927FA3303E | apt-key add - \
