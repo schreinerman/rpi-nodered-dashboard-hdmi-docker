@@ -82,14 +82,6 @@ sudo chmod -R 777 /dev/snd
 sudo chmod -R 777 /dev/input
 sudo chmod -R 777 /dev/fb0
 
-# Disable any form of screen saver / screen blanking / power management
-/usr/bin/xset s off
-/usr/bin/xset s noblank
-/usr/bin/xset -dpms
-
-# Allow quitting the X server with CTRL-ATL-Backspace
-setxkbmap -option terminate:ctrl_alt_bksp
-
 echo "starting X on display 0 ..."
 /usr/bin/startx -- -nocursor :0 &
 sleep 10
@@ -98,6 +90,26 @@ echo "starting VNC ..."
 /usr/bin/vncserver-x11 &
 
 sleep 10
+
+# Disable any form of screen saver / screen blanking / power management
+/usr/bin/xset s off
+/usr/bin/xset s noblank
+/usr/bin/xset -dpms
+
+# Allow quitting the X server with CTRL-ATL-Backspace
+setxkbmap -option terminate:ctrl_alt_bksp
+
+export DISPLAY=:0.0
+/usr/bin/xset -q
+if test $? -ne 0
+then
+  sleep 20
+  kill 1
+  while true
+  do
+    tail -f /dev/null & wait ${!}
+  done
+fi
 
 sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ~/.config/chromium/'Local State'
 sed -i 's/"exited_cleanly":false/"exited_cleanly":true/; s/"exit_type":"[^"]\+"/"exit_type":"Normal"/' ~/.config/chromium/Default/Preferences
