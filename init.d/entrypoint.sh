@@ -113,7 +113,7 @@ fi
 
 sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ~/.config/chromium/'Local State'
 sed -i 's/"exited_cleanly":false/"exited_cleanly":true/; s/"exit_type":"[^"]\+"/"exit_type":"Normal"/' ~/.config/chromium/Default/Preferences
-/usr/bin/chromium-browser --disable-infobars --kiosk 'http://127.0.0.1:1880/ui' &
+/usr/bin/chromium-browser --disable-infobars --check-for-update-interval=31536000 --kiosk 'http://127.0.0.1:1880/ui' &
 
 # wait forever not to exit the container
 while true
